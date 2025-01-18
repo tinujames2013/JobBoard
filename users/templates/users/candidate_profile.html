@@ -1,0 +1,23 @@
+{% extends 'users/users_base.html' %}
+{% load static %}
+
+{% block content %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Candidate Profile</title>
+</head>
+<body>
+    <h2>Candidate Profile</h2>
+    <p><strong>Name:</strong> {{ profile.name }}</p>
+    <p><strong>Email:</strong> {{ profile.email }}</p>
+    <p><strong>Mobile:</strong> {{ profile.mobile }}</p>
+    <p><strong>Date of Birth:</strong> {{ profile.date_of_birth }}</p>
+    <p><strong>About Me:</strong> {{ profile.about_me }}</p>
+    <p><strong>Experience:</strong> {{ profile.experience }}</p>
+    <p><strong>Skills:</strong> {{ profile.skills }}</p>
+    <a href="{% url 'users:edit_candidate_profile' %}">Edit Profile</a>
+</body>
+</html>
+
+{% endblock %}

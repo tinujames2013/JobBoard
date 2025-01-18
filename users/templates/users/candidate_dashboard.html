@@ -1,0 +1,100 @@
+{% extends "users/users_base.html" %}
+{% load static %}
+{% block content %}
+
+<div class="container py-5">
+    <h2 class="text-center">Candidate Dashboard</h2>
+    
+    <!-- Profile Section -->
+    <div class="card mt-4">
+        <div class="card-header">
+            <h4>Welcome, {{ profile.name }}!</h4>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-4 text-center">
+                    {% if profile.profile_picture %}
+                        <img src="{{ profile.profile_picture.url }}" class="img-thumbnail" alt="Profile Picture" style="width: 150px; height: 150px; object-fit: cover;">
+                    {% else %}
+                        <img src="https://via.placeholder.com/150" class="img-thumbnail" alt="Placeholder" style="width: 150px; height: 150px;">
+                    {% endif %}
+                </div>
+                <div class="col-md-8">
+                    <p><strong>Email:</strong> {{ profile.email }}</p>
+                    <p><strong>Mobile:</strong> {{ profile.mobile }}</p>
+                    <p><strong>Company:</strong> {{ profile.company|default:"N/A" }}</p>
+                    <p><strong>Skills:</strong> {{ profile.skills|default:"N/A" }}</p>
+                    <a href="{% url 'users:edit_profile' %}" class="btn btn-primary btn-sm">Edit Profile</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Saved Jobs Section -->
+    <div class="card mt-4">
+        <div class="card-header">
+            <h4>Saved Jobs</h4>
+        </div>
+        <div class="card-body">
+            {% if saved_jobs %}
+                <ul class="list-group">
+                    {% for job in saved_jobs %}
+                        <li class="list-group-item">
+                            <h5>{{ job.title }}</h5>
+                            <p>{{ job.description|truncatewords:20 }}</p>
+                            <a href="{% url 'jobs:view_job' job.id %}" class="btn btn-link">View Job</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>You have no saved jobs.</p>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Applications Section -->
+    <div class="card mt-4">
+        <div class="card-header">
+            <h4>Applications</h4>
+        </div>
+        <div class="card-body">
+            {% if applications %}
+                <ul class="list-group">
+                    {% for application in applications %}
+                        <li class="list-group-item">
+                            <h5>Job: {{ application.job.title }}</h5>
+                            <p><strong>Status:</strong> {{ application.status }}</p>
+                            <p><strong>Applied On:</strong> {{ application.date_applied|date:"M d, Y" }}</p>
+                            <a href="{% url 'users:view_application' application.id %}" class="btn btn-link">View Details</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>You have not applied for any jobs.</p>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Notifications Section -->
+    <div class="card mt-4">
+        <div class="card-header">
+            <h4>Notifications</h4>
+        </div>
+        <div class="card-body">
+            {% if notifications %}
+                <ul class="list-group">
+                    {% for notification in notifications %}
+                        <li class="list-group-item">
+                            <p>{{ notification.message }}</p>
+                            <small><em>Received on {{ notification.timestamp|date:"M d, Y H:i" }}</em></small>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>You have no new notifications.</p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}

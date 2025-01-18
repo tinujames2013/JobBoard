@@ -1,0 +1,71 @@
+{% extends 'sitevisitor/site_base.html' %}
+{% load static %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-6 offset-md-3 text-center">
+            <h2>Login</h2>
+            <p>Select your role to log in</p>
+        </div>
+    </div>
+    <div class="row mt-4">
+        <!-- Candidate Login -->
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header bg-primary text-white text-center">
+                    Candidate Login
+                </div>
+                <div class="card-body">
+                    <form method="post" action="{% url 'sitevisitor:login' %}">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label for="username_candidate" class="form-label">Username</label>
+                            <input type="text" class="form-control" id="username_candidate" name="username" placeholder="Enter your username" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="password_candidate" class="form-label">Password</label>
+                            <input type="password" class="form-control" id="password_candidate" name="password" placeholder="Enter your password" required>
+                        </div>
+                        <input type="hidden" name="role" value="candidate">
+                        <button type="submit" class="btn btn-primary w-100">Login as Candidate</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recruiter Login -->
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header bg-primary text-white text-center">
+                    Recruiter Login
+                </div>
+                <div class="card-body">
+                    <form method="post" action="{% url 'sitevisitor:login' %}">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label for="username_recruiter" class="form-label">Username</label>
+                            <input type="text" class="form-control" id="username_recruiter" name="username" placeholder="Enter your username" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="password_recruiter" class="form-label">Password</label>
+                            <input type="password" class="form-control" id="password_recruiter" name="password" placeholder="Enter your password" required>
+                        </div>
+                        <input type="hidden" name="role" value="recruiter">
+                        <button type="submit" class="btn btn-success w-100">Login as Recruiter</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col text-center">
+            <p>Don't have an account? <a href="{% url 'sitevisitor:register' %}">Register here</a></p>
+            <p><a href="{% url 'sitevisitor:reset_password' %}">Forgot your password?</a></p>
+        </div>
+    </div>
+</div>
+{% endblock %}

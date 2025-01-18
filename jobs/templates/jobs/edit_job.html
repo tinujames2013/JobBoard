@@ -1,0 +1,17 @@
+{% extends 'jobs/jobs_base.html' %}
+{% load static %}
+{% block title %}Edit Job{% endblock %}
+
+
+{% block content %}
+<h2>Edit Job: {{ job.job_title }}</h2>
+
+<form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Save Changes</button>
+</form>
+
+<a href="{% url 'jobs:manage_jobs' %}">Back to Manage Jobs</a>
+{% endblock %}
+

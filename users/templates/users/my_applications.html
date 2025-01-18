@@ -1,0 +1,40 @@
+{% extends "users/users_base.html" %}
+{% load static %}
+{% block content %}
+<div class="container">
+    <h1>My Applications</h1>
+
+    {% if applications %}
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Job Title</th>
+                    <th>Applied On</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for application in applications %}
+                    <tr>
+                        <td>{{ application.job.job_title }}</td>
+                        <td>{{ application.applied_at|date:"M d, Y" }}</td>
+                        <td>
+                            {% if application.status == "Pending" %}
+                                <span class="badge bg-warning">{{ application.get_status_display }}</span>
+                            {% elif application.status == "Reviewed" %}
+                                <span class="badge bg-info">{{ application.get_status_display }}</span>
+                            {% elif application.status == "Accepted" %}
+                                <span class="badge bg-success">{{ application.get_status_display }}</span>
+                            {% elif application.status == "Rejected" %}
+                                <span class="badge bg-danger">{{ application.get_status_display }}</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p class="alert alert-info">You haven't applied for any jobs yet.</p>
+    {% endif %}
+</div>
+{% endblock %}

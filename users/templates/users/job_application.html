@@ -1,0 +1,28 @@
+{% extends 'users/users_base.html' %}
+{% load static %}
+
+{% block title %}
+Apply for {{ job.job_title }}
+{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2>Apply for {{ job.job_title }}</h2>
+    <p class="text-muted">Job at {{ job.company_name }}</p>
+    <hr>
+
+    {% if messages %}
+        <div>
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <form method="post" enctype="multipart/form-data" class="mt-4">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Submit Application</button>
+    </form>
+</div>
+{% endblock %}

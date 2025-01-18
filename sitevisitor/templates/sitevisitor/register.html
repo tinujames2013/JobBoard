@@ -1,0 +1,56 @@
+{% extends 'sitevisitor/site_base.html' %}
+{% block title %}Register{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-lg">
+                <!-- Header styled as button or separated column -->
+                <div class="text-center mt-3 mb-3">
+                    <h3 class="fw-bold" style="padding: 10px; border: 1px solid #ddd; border-radius: 5px; display: inline-block;">
+                        Create Your Account
+                    </h3>
+                    <p class="mt-2">Join as a Candidate or Recruiter</p>
+                </div>
+                <div class="card-body">
+                    <form method="post" action="{% url 'sitevisitor:register' %}">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label for="username" class="form-label">Username</label>
+                            <input type="text" class="form-control" id="username" name="username" placeholder="Choose a username" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Password</label>
+                            <input type="password" class="form-control" id="password" name="password" placeholder="Create a strong password" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="confirm_password" class="form-label">Confirm Password</label>
+                            <input type="password" class="form-control" id="confirm_password" name="confirm_password" placeholder="Re-enter your password" required>
+                        </div>
+                        <div class="mb-4">
+                            <label class="form-label">Select Role</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="role" id="candidate" value="candidate" required>
+                                <label class="form-check-label" for="candidate">Candidate</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="role" id="recruiter" value="recruiter" required>
+                                <label class="form-check-label" for="recruiter">Recruiter</label>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">Register</button>
+                    </form>
+                </div>
+            </div>
+            <div class="text-center mt-3">
+                <p>Already have an account? <a href="{% url 'sitevisitor:login' %}" class="text-primary">Login here</a></p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,73 @@
+{% extends 'users/users_base.html' %}
+{% load static %}
+{% block content %}
+<div class="container mt-5">
+    <h1 class="mb-4">Post a Job</h1>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="job_title">Job Title</label>
+            <input type="text" id="job_title" name="job_title" class="form-control" placeholder="Enter job title" required>
+        </div>
+        <div class="form-group">
+            <label for="job_location">Job Location</label>
+            <input type="text" id="job_location" name="job_location" class="form-control" placeholder="Enter job location" required>
+        </div>
+        <div class="form-group">
+            <label for="job_region">Job Region</label>
+            <select id="job_region" name="job_region" class="form-control" required>
+                <option value="">Select Region</option>
+                {% for region, label in job_region_choices %}
+                <option value="{{ region }}">{{ label }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="job_type">Job Type</label>
+            <select id="job_type" name="job_type" class="form-control" required>
+                <option value="">Select Job Type</option>
+                {% for type, label in job_type_choices %}
+                <option value="{{ type }}">{{ label }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="job_description">Job Description</label>
+            <textarea id="job_description" name="job_description" class="form-control" rows="4" placeholder="Enter job description" required></textarea>
+        </div>
+        <div class="form-group">
+            <label for="qualifications">Qualifications</label>
+            <textarea id="qualifications" name="qualifications" class="form-control" rows="3" placeholder="Enter required qualifications" required></textarea>
+        </div>
+        <div class="form-group">
+            <label for="salary">Salary (Optional)</label>
+            <input type="number" id="salary" name="salary" class="form-control" placeholder="Enter salary">
+        </div>
+        <div class="form-group">
+            <label for="company_name">Company Name</label>
+            <input type="text" id="company_name" name="company_name" class="form-control" placeholder="Enter company name" required>
+        </div>
+        <div class="form-group">
+            <label for="company_tagline">Company Tagline (Optional)</label>
+            <input type="text" id="company_tagline" name="company_tagline" class="form-control" placeholder="Enter company tagline">
+        </div>
+        <div class="form-group">
+            <label for="company_description">Company Description (Optional)</label>
+            <textarea id="company_description" name="company_description" class="form-control" rows="3" placeholder="Enter company description"></textarea>
+        </div>
+        <div class="form-group">
+            <label for="company_website">Company Website (Optional)</label>
+            <input type="url" id="company_website" name="company_website" class="form-control" placeholder="Enter company website">
+        </div>
+        <div class="form-group">
+            <label for="featured_image">Featured Image (Optional)</label>
+            <input type="file" id="featured_image" name="featured_image" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="logo">Company Logo (Optional)</label>
+            <input type="file" id="logo" name="logo" class="form-control">
+        </div>
+        <button type="submit" class="btn btn-primary mt-3">Post Job</button>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,137 @@
+{% extends "users/users_base.html" %}
+{% load static %}
+{% block content %}
+
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Home - Job Listings</title>
+
+        <!-- Stylesheets -->
+        <link rel="stylesheet" href="{% static 'css/plugins.css' %}">
+        <link rel="stylesheet" href="{% static 'css/common.css' %}">
+        <link rel="stylesheet" href="{% static 'css/main.css' %}">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+    </head>
+    <body>
+        <!-- Navigation Start -->
+        <nav class="navbar navbar-default navbar-sticky bootsnav">
+            <div class="container">
+                <!-- Header Navigation -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-menu">
+                        <i class="fa fa-bars"></i>
+                    </button>
+                    <a class="navbar-brand" href="{% url 'users:users_home' %}">
+                        <img src="{% static 'img/logo.png' %}" class="logo" alt="Logo">
+                    </a>
+                </div>
+
+                <!-- Navbar Menu -->
+                <div class="collapse navbar-collapse" id="navbar-menu">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="{% url 'users:users_home' %}">Home</a></li>
+                        <li><a href="{% url 'users:job_list' %}">Job Listings</a></li>
+                        <li><a href="{% url 'users:candidate_dashboard' %}">Dashboard</a></li>
+                        <li><a href="{% url 'users:view_profile' %}">Profile</a></li>
+                        <li><a href="{% url 'users:job_search' %}">Job Search</a></li>
+                        <li><a href="{% url 'users:my_applications' %}">My Application</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <!-- Navigation End -->
+
+        <!-- Hero Section -->
+        <section class="main-banner" style="background: #242c36 url('{% static "img/slider-02.jpg" %}') no-repeat;">
+            <div class="container">
+                <div class="banner-content">
+                    <h1>Find Your Dream Job</h1>
+                    <p>Browse through thousands of job opportunities and apply today.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Job Listings Section -->
+        <section class="job-listings py-5">
+            <div class="container">
+                <h2 class="text-center mb-4">Available Job Listings</h2>
+                <div class="row">
+                    {% for job in jobs %}
+                        <div class="col-md-12 mb-4">
+                            <div class="card shadow-sm border-0">
+                                <div class="row g-0">
+                                    <!-- Job Image -->
+                                    <div class="col-md-2 d-flex align-items-center justify-content-center bg-light">
+                                        {% if job.featured_image %}
+                                            <img src="{{ job.featured_image.url }}" 
+                                                 class="img-fluid rounded-circle" 
+                                                 alt="Job Image" 
+                                                 style="width: 80px; height: 80px; object-fit: cover;">
+                                        {% else %}
+                                            <img src="https://via.placeholder.com/80" 
+                                                 class="img-fluid rounded-circle" 
+                                                 alt="Placeholder" 
+                                                 style="width: 80px; height: 80px; object-fit: cover;">
+                                        {% endif %}
+                                    </div>
+
+                                    <!-- Job Details -->
+                                    <div class="col-md-10">
+                                        <div class="card-body">
+                                            <h5 class="card-title text-primary">{{ job.job_title }}</h5>
+                                            <p class="card-text text-secondary small">{{ job.job_description|truncatewords:20 }}</p>
+                                            <div class="d-flex flex-wrap justify-content-between">
+                                                <p class="card-text mb-1">
+                                                    <i class="bi bi-geo-alt-fill text-success"></i> 
+                                                    <strong>Location:</strong> {{ job.job_location }}
+                                                </p>
+                                                <p class="card-text mb-1">
+                                                    <i class="bi bi-briefcase-fill text-info"></i> 
+                                                    <strong>Type:</strong> {{ job.job_type }}
+                                                </p>
+                                                <p class="card-text mb-1">
+                                                    <i class="bi bi-currency-dollar text-warning"></i> 
+                                                    <strong>Salary:</strong> {{ job.salary|default:"Not Disclosed" }}
+                                                </p>
+                                            </div>
+                                            <div class="d-flex justify-content-end mt-3">
+                                                <!-- Browse Job and Apply Now -->
+                                                <a href="{% url 'jobs:job_view' job.id %}" class="btn btn-danger btn-sm me-2">Browse Job</a>
+                                                {% if user.is_authenticated %}
+                                                    <a href="{% url 'users:apply_for_job' job.id %}"class="btn btn-danger btn-sm">Apply Now</a>
+                                                {% else %}
+                                                    <a href="{% url 'users:login' %}" class="btn btn-warning btn-sm">Login to Apply</a>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% empty %}
+                        <div class="col-12">
+                            <p class="text-center text-muted">No jobs available at the moment. Check back later!</p>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer>
+            <div class="container text-center py-3">
+                <p>&copy; {{ current_year }} Jober Desk. All rights reserved.</p>
+            </div>
+        </footer>
+
+        <!-- Scripts -->
+        <script src="{% static 'js/jquery.min.js' %}"></script>
+        <script src="{% static 'js/bootstrap.min.js' %}"></script>
+        <script src="{% static 'js/main.js' %}"></script>
+    </body>
+</html>
+
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends 'users/users_base.html' %}
+
+{% block title %}View Resume{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>View Resume</h2>
+    {% if documents and documents.resume %}
+    <iframe src="{{ documents.resume.url }}" style="width: 100%; height: 500px;" frameborder="0"></iframe>
+    {% else %}
+    <p>No resume uploaded yet. <a href="{% url 'users:upload_documents' %}">Upload a resume</a>.</p>
+    {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends 'users/users_base.html' %}
+{% load static %}
+
+{% block title %}Notification Preferences{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Notification Preferences</h2>
+    <form method="post">
+        {% csrf_token %}
+        <div class="form-check">
+            <input type="checkbox" name="email_alerts" id="email_alerts" class="form-check-input" 
+                   {% if notification_preference.email_alerts %}checked{% endif %}>
+            <label for="email_alerts" class="form-check-label">Receive email alerts for job-related updates</label>
+        </div>
+        <div class="form-check mt-3">
+            <input type="checkbox" name="new_job_alerts" id="new_job_alerts" class="form-check-input" 
+                   {% if notification_preference.new_job_alerts %}checked{% endif %}>
+            <label for="new_job_alerts" class="form-check-label">Receive alerts for new job listings</label>
+        </div>
+        <div class="form-check mt-3">
+            <input type="checkbox" name="application_status_updates" id="application_status_updates" class="form-check-input" 
+                   {% if notification_preference.application_status_updates %}checked{% endif %}>
+            <label for="users:application_status_updates" class="form-check-label">Receive application status updates</label>
+        </div>
+        <button type="submit" class="btn btn-primary mt-4">Save Preferences</button>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends 'jobs/jobs_base.html' %}
+{% block title %}Candidate Search{% endblock %}
+
+{% block content %}
+<h2>Candidate Search</h2>
+
+<form method="get">
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Search</button>
+</form>
+
+{% if results %}
+    <h3>Search Results</h3>
+    <ul>
+        {% for profile in results %}
+            <li>
+                <strong>{{ profile.name }}</strong> 
+                - {{ profile.user.email }} 
+                - Skills: {{ profile.skills }}
+                - Experience: {{ profile.experience }}
+                - <a href="{% url 'users:view_profile_by_username' username=profile.user.username %}"  class="btn btn-link">View Profile</a>
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>No candidates found.</p>
+{% endif %}
+{% endblock %}

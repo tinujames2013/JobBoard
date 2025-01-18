@@ -1,0 +1,14 @@
+{% extends 'users/users_base.html' %}
+{% load static %}
+
+{% block title %}
+Job Expired
+{% endblock %}
+
+{% block content %}
+<div class="container mt-5 text-center">
+    <h2 class="text-danger">Job Expired</h2>
+    <p class="text-muted">The job posting you're trying to access is no longer available.</p>
+    <a href="{% url 'users:job_list' %}" class="btn btn-primary">Back to Job List</a>
+</div>
+{% endblock %}

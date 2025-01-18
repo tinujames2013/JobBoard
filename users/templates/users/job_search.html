@@ -1,0 +1,72 @@
+{% extends 'users/users_base.html' %}
+{% load static %}
+
+{% block title %}
+Job Search
+{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="text-center">Search for Jobs</h2>
+    
+    <!-- Job Search Filters -->
+    <form method="GET" action="{% url 'users:job_search_results' %}" class="mb-4">
+        <div class="row">
+            <div class="col-md-4">
+                <label for="job_title" class="form-label">Job Title</label>
+                <input type="text" id="job_title" name="job_title" class="form-control" placeholder="Enter job title">
+            </div>
+            <div class="col-md-4">
+                <label for="location" class="form-label">Location</label>
+                <input type="text" id="location" name="location" class="form-control" placeholder="Enter location">
+            </div>
+            <div class="col-md-4">
+                <label for="category" class="form-label">Category</label>
+                <select id="category" name="category" class="form-control">
+                    <option value="">Select Category</option>
+                    <option value="IT">IT</option>
+                    <option value="Finance">Finance</option>
+                    <option value="Marketing">Marketing</option>
+                </select>
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-md-4">
+                <label for="salary_min" class="form-label">Min Salary</label>
+                <input type="number" id="salary_min" name="salary_min" class="form-control" placeholder="Min salary">
+            </div>
+            <div class="col-md-4">
+                <label for="salary_max" class="form-label">Max Salary</label>
+                <input type="number" id="salary_max" name="salary_max" class="form-control" placeholder="Max salary">
+            </div>
+            <div class="col-md-4">
+                <label for="job_type" class="form-label">Job Type</label>
+                <select id="job_type" name="job_type" class="form-control">
+                    <option value="">Select Job Type</option>
+                    <option value="Full Time">Full Time</option>
+                    <option value="Part Time">Part Time</option>
+                </select>
+            </div>
+        </div>
+        <div class="mt-4 text-center">
+            <button type="submit" class="btn btn-primary">Search</button>
+        </div>
+    </form>
+
+    <!-- Search Results -->
+    {% if jobs %}
+    <h3 class="mt-5">Search Results</h3>
+    <ul class="list-group">
+        {% for job in jobs %}
+        <li class="list-group-item">
+            <h5><a href="{% url 'users:job_detail' job.id %}">{{ job.job_title }}</a></h5>
+            <p>{{ job.company_name }} - {{ job.job_location }}</p>
+            <p>{{ job.job_type }} | {{ job.salary }} USD</p>
+        </li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <p class="text-center text-muted mt-5">No jobs found. Try adjusting your search criteria.</p>
+    {% endif %}
+</div>
+{% endblock %}

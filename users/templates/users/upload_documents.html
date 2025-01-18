@@ -1,0 +1,37 @@
+{% extends 'users/users_base.html' %}
+
+{% block title %}Upload Documents{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Upload Documents</h2>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="form-group">
+            {{ form.resume.label_tag }} {{ form.resume }}
+        </div>
+        <div class="form-group mt-3">
+            {{ form.portfolio.label_tag }} {{ form.portfolio }}
+        </div>
+        <div class="form-group mt-3">
+            {{ form.certifications.label_tag }} {{ form.certifications }}
+        </div>
+        <button type="submit" class="btn btn-primary mt-3">Upload</button>
+    </form>
+
+    {% if documents %}
+    <h3 class="mt-5">Uploaded Documents</h3>
+    <ul>
+        {% if documents.resume %}
+        <li><a href="{{ documents.resume.url }}" target="_blank">Resume</a></li>
+        {% endif %}
+        {% if documents.portfolio %}
+        <li><a href="{{ documents.portfolio.url }}" target="_blank">Portfolio</a></li>
+        {% endif %}
+        {% if documents.certifications %}
+        <li><a href="{{ documents.certifications.url }}" target="_blank">Certifications</a></li>
+        {% endif %}
+    </ul>
+    {% endif %}
+</div>
+{% endblock %}

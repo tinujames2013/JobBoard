@@ -1,0 +1,51 @@
+{% extends 'jobs/jobs_base.html' %}
+{% load static %}
+{% block title %}Home | Jobs Portal{% endblock %}
+
+{% block banner %}
+<section class="inner-banner" style="background-image: url('{% static "img/home-banner.jpg" %}');">
+    <div class="caption">
+        <h1>Welcome to the Jobs Portal</h1>
+        <p>Your gateway to opportunities</p>
+    </div>
+</section>
+{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Why Choose Us?</h2>
+    <div class="row text-center">
+        <div class="col-md-4">
+            <div class="card shadow-sm h-100">
+                <div class="card-image" style="height: 150px; background-image: url('{% static "img/postjob.jpg" %}'); background-size: cover; background-position: center;"></div>
+                <div class="card-body">
+                    <i class="fa fa-briefcase fa-3x text-primary mb-3"></i>
+                    <h4 class="card-title">Post Jobs</h4>
+                    <p class="card-text">Easily post and manage job listings to find the right candidates.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card shadow-sm h-100">
+                <div class="card-image" style="height: 150px; background-image: url('{% static "img/search.jpg" %}'); background-size: cover; background-position: center;"></div>
+                <div class="card-body">
+                    <i class="fa fa-search fa-3x text-success mb-3"></i>
+                    <h4 class="card-title">Search Candidates</h4>
+                    <p class="card-text">Access a wide pool of talent with advanced filtering options.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card shadow-sm h-100">
+                <div class="card-image" style="height: 150px; background-image: url('{% static "img/applicant.jpg" %}'); background-size: cover; background-position: center;"></div>
+                <div class="card-body">
+                    <i class="fa fa-users fa-3x text-warning mb-3"></i>
+                    <h4 class="card-title">Manage Applications</h4>
+                    <p class="card-text">Streamline the hiring process with an intuitive application dashboard.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

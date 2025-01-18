@@ -1,0 +1,167 @@
+{% load static %}
+<!doctype html>
+<html class="no-js" lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Jober Desk | Responsive Job Portal Template</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!-- All Plugin Css -->
+        <link rel="stylesheet" href="{% static 'css/plugins.css' %}">
+
+        <!-- Style & Common Css -->
+        <link rel="stylesheet" href="{% static 'css/common.css' %}">
+        <link rel="stylesheet" href="{% static 'css/main.css' %}">
+        <style>
+            .inner-banner {
+                position: relative;
+                background-size: cover;
+                background-position: center;
+                min-height: 400px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: white;
+                text-align: center;
+            }
+            .inner-banner .caption h2 {
+                font-size: 48px;
+                font-weight: bold;
+                margin-bottom: 10px;
+            }
+            .inner-banner .caption p {
+                font-size: 18px;
+                font-weight: 300;
+            }
+            .inner-banner .caption span {
+                font-weight: bold;
+                color: #ffcc00;
+            }
+            .navbar-nav .dropdown-menu {
+                background-color: #242c36;
+                border: none;
+                padding: 10px;
+                min-width: 200px;
+            }
+            .navbar-nav .dropdown-menu li a {
+                color: #fff;
+                padding: 10px 15px;
+                display: block;
+                font-size: 14px;
+                text-decoration: none;
+            }
+            .navbar-nav .dropdown-menu li a:hover {
+                background-color: #444b53;
+            }
+        </style>
+    </head>
+
+    <body>
+        <!-- Navigation Start -->
+        <nav class="navbar navbar-default navbar-sticky bootsnav">
+            <div class="container">
+                <!-- Start Header Navigation -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-menu">
+                        <i class="fa fa-bars"></i>
+                    </button>
+                    <a class="navbar-brand" href="{% url 'users:users_home' %}">
+                        <img src="{% static 'img/logo.png' %}" class="logo" alt="Logo">
+                    </a>
+                </div>
+                <!-- End Header Navigation -->
+
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="navbar-menu">
+                    <ul class="nav navbar-nav navbar-right" data-in="fadeInDown" data-out="fadeOutUp">
+                        <!-- Home -->
+                        <li>
+                            <a href="{% url 'users:users_home' %}">
+                                <i class="fa fa-home"></i> Home
+                            </a>
+                        </li>
+                        <!-- Profile -->
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <i class="fa fa-user"></i> Profile <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="{% url 'users:view_profile' %}">View Profile</a></li>
+                                <li><a href="{% url 'users:create_profile' %}">Create Profile</a></li>
+                                <li><a href="{% url 'users:edit_profile' %}">Edit Profile</a></li>
+                            </ul>
+                        </li>
+                        <!-- Dashboard -->
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <i class="fa fa-tachometer"></i> Dashboard <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="{% url 'users:candidate_dashboard' %}">Candidate Dashboard</a></li>
+                                <li><a href="{% url 'users:job_list' %}">Job Listings</a></li>
+                                <li><a href="{% url 'users:application_status' %}">Application Status</a></li>
+                                <li><a href="{% url 'users:candidate_notifications' %}">Candidate Notifications</a></li>
+                                <li><a href="{% url 'jobs:my_notifications' %}">Application Notifications</a></li>
+                            </ul>
+                        </li>
+                        <!-- Documents -->
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <i class="fa fa-file"></i> Documents <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="{% url 'users:upload_documents' %}">Upload Documents</a></li>
+                                <li><a href="{% url 'users:view_resume' %}">View Resume</a></li>
+                            </ul>
+                        </li>
+                        <!-- Job Search -->
+                        <li>
+                            <a href="{% url 'users:job_search' %}">
+                                <i class="fa fa-search"></i> Job Search
+                                <li><a href="{% url 'jobs:logout' %}">
+                                    <i class="fa fa-sign-out"></i> Logout
+                                </a>
+                                </li>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- /.navbar-collapse -->
+            </div>
+        </nav>
+        <!-- Navigation End -->
+
+        <!-- Inner Banner -->
+        <section class="main-banner" style="background: #242c36 url('{% static "img/slider-02.jpg" %}') no-repeat;">
+            <div class="inner-banner">
+                <div class="caption">
+                    <h2>Get your jobs</h2>
+                    <p>Get your Popular jobs <span>2025 New job</span></p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Content Section -->
+        <div class="container mt-5">
+            {% block content %}
+            {% endblock %}
+        </div>
+
+        <!-- Footer Start -->
+        <footer>
+            <div class="copy-right">
+                <p>&copy; Copyright 2018 Jober Desk | Design By 
+                   <a href="https://themezhub.com/">ThemezHub</a>
+                </p>
+            </div>
+        </footer>
+
+        <script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
+        <script src="{% static 'js/bootstrap.min.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/owl.carousel.min.js' %}"></script>
+        <script src="{% static 'js/bootsnav.js' %}"></script>
+        <script src="{% static 'js/main.js' %}"></script>
+    </body>
+</html>

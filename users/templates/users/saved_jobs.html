@@ -1,0 +1,37 @@
+{% extends 'users/users_base.html' %}
+{% load static %}
+
+{% block title %}
+Saved Jobs
+{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="text-center">Saved Jobs</h2>
+    <hr>
+
+    {% if saved_jobs %}
+        <div class="row">
+            {% for job in saved_jobs %}
+                <div class="col-md-6">
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ job.job_title }}</h5>
+                            <p class="card-text text-muted">{{ job.company_name }}</p>
+                            <p class="card-text"><strong>Location:</strong> {{ job.job_location }}</p>
+                            <p class="card-text"><strong>Posted On:</strong> {{ job.posted_at|date:"F d, Y" }}</p>
+                            <a href="{% url 'users:job_detail' job.id %}" class="btn btn-primary">View Job</a>
+                            <form method="post" action="{% url 'unsave_job' job.id %}" style="display: inline;">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-outline-danger">Remove</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p class="text-center text-muted">You haven't saved any jobs yet.</p>
+    {% endif %}
+</div>
+{% endblock %}

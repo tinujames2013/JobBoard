@@ -1,0 +1,50 @@
+{% extends 'jobs/jobs_base.html' %}
+
+{% block title %}{{ job.job_title }}{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1>{{ job.job_title }}</h1>
+    <p><strong>Company:</strong> {{ job.company_name }}</p>
+    <p><strong>Location:</strong> {{ job.job_location }}</p>
+    <p><strong>Region:</strong> {{ job.get_job_region_display }}</p>
+    <p><strong>Job Type:</strong> {{ job.get_job_type_display }}</p>
+
+    {% if job.salary %}
+        <p><strong>Salary:</strong> ₹{{ job.salary }}</p>
+    {% endif %}
+
+    <p><strong>Job Description:</strong></p>
+    <p>{{ job.job_description }}</p>
+
+    <p><strong>Qualifications:</strong></p>
+    <p>{{ job.qualifications }}</p>
+
+    {% if job.featured_image %}
+        <div class="mt-4">
+            <img src="{{ job.featured_image.url }}" alt="Job Image" class="img-fluid">
+        </div>
+    {% endif %}
+
+    {% if job.company_logo %}
+        <div class="mt-4">
+            <img src="{{ job.logo.url }}" alt="Company Logo" class="img-fluid">
+        </div>
+    {% endif %}
+
+    <p><strong>Company Description:</strong></p>
+    <p>{{ job.company_description }}</p>
+
+    {% if job.company_website %}
+        <p><strong>Company Website:</strong> <a href="{{ job.company_website }}" target="_blank">{{ job.company_name }}</a></p>
+    {% endif %}
+
+    <!-- Display job posting time -->
+    <p><strong>Posted on:</strong> {{ job.posted_at|date:"F d, Y" }} at {{ job.posted_at|time:"H:i" }}</p>
+
+    <!-- Login prompt -->
+    <div class="mt-5 text-center">
+        <p>Interested in applying? <a href="{% url 'sitevisitor:login' %}" class="btn btn-primary">Login Here</a></p>
+    </div>
+</div>
+{% endblock %}

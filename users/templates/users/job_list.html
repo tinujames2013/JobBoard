@@ -1,0 +1,57 @@
+{% extends 'users/users_base.html' %} 
+{% load static %}
+
+{% block title %}Job Listings{% endblock %}
+
+{% block content %}
+    <div class="container mt-5">
+        <h1 class="mb-4">Available Jobs</h1>
+
+        <!-- Table to display jobs -->
+        <table class="table table-bordered">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Job Title</th>
+                    <th scope="col">Company</th>
+                    <th scope="col">Location</th>
+                    <th scope="col">Job Type</th>
+                    <th scope="col">Salary</th>
+                    <th scope="col">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for job in jobs %}
+                    <tr>
+                        <td>
+                            <div class="d-flex align-items-center">
+                                {% if job.featured_image %}
+                                    <img src="{{ job.featured_image.url }}" class="img-fluid rounded-circle" alt="Job Image" style="width: 50px; height: 50px; margin-right: 10px;">
+                                {% else %}
+                                    <img src="https://via.placeholder.com/50" class="img-fluid rounded-circle" alt="Placeholder" style="width: 50px; height: 50px; margin-right: 10px;">
+                                {% endif %}
+                                {{ job.job_title }}
+                            </div>
+                        </td>
+                        <td>{{ job.company_name }}</td>
+                        <td>{{ job.job_location }}</td>
+                        <td>{{ job.job_type }}</td>
+                        <td>{{ job.salary|default:"N/A" }}</td>
+                        <td>
+                            <!-- View Details and Apply buttons -->
+                            <a href="{% url 'jobs:job_view' job.id %}" class="btn btn-info btn-sm">View Details</a>
+                            {% if user.is_authenticated %}
+                                <a href="{% url 'users:apply_for_job' job.id %}" class="btn btn-primary btn-sm">Apply Now</a>
+                            {% else %}
+                                <a href="{% url 'users:login' %}" class="btn btn-warning btn-sm">Login to Apply</a>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="6" class="text-center">No jobs available at the moment.</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

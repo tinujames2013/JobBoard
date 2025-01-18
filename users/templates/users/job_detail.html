@@ -1,0 +1,21 @@
+{% extends 'users/users_base.html' %}
+{% load static %}
+
+
+
+{% block content %}
+<div class="container">
+    <h1>{{ job.job_title }}</h1>
+    <p>{{ job.description }}</p>
+
+    {% if user.is_authenticated %}
+        {% if is_saved %}
+            <button class="btn btn-success">Job Saved</button>
+        {% else %}
+            <button class="btn btn-primary">Save Job</button>
+        {% endif %}
+    {% else %}
+        <p>Please <a href="{% url 'users:login' %}">log in</a> to save this job.</p>
+    {% endif %}
+</div>
+{% endblock %}

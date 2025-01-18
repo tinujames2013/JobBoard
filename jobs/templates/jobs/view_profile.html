@@ -1,0 +1,36 @@
+{% extends 'jobs/jobs_base.html' %}
+{% load static %}
+
+{% block title %}View Profile{% endblock %}
+
+
+
+
+{% block content %}
+<div class="container py-5">
+    <h2 class="text-center">{{ profile.name }}'s Profile</h2>
+    <div class="card mt-4 shadow-lg">
+        <div class="card-header text-center bg-primary text-white">
+            <h4>{{ profile.name }}</h4>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                
+                <div class="col-md-8">
+                    <ul class="list-group">
+                        {% if user.is_authenticated %}
+                            <li class="list-group-item"><strong>Email:</strong> {{ profile.user.email }}</li>
+                        {% endif %}
+                        <li class="list-group-item"><strong>Username:</strong> {{ profile.user.username }}</li>
+                        <li class="list-group-item"><strong>Mobile:</strong> {{ profile.mobile }}</li>
+                        <li class="list-group-item"><strong>Company:</strong> {{ profile.company|default:"N/A" }}</li>
+                        
+                        <li class="list-group-item"><strong>About Me:</strong> {{ profile.about_me|default:"N/A" }}</li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

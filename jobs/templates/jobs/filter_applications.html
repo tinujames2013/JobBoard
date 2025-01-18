@@ -1,0 +1,38 @@
+{% extends 'jobs/jobs_base.html' %}
+{% block title %}Filter Applications{% endblock %}
+{% block content %}
+<div class="container">
+    <h1>Filter Applications</h1>
+    <form method="get">
+        <select name="status" class="form-control">
+            <option value="">All</option>
+            {% for choice in application_choices %}
+                <option value="{{ choice.0 }}">{{ choice.1 }}</option>
+            {% endfor %}
+        </select>
+        <button type="submit" class="btn btn-primary mt-2">Filter</button>
+    </form>
+    <table class="table mt-3">
+        <thead>
+            <tr>
+                <th>Job</th>
+                <th>Applicant</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for application in applications %}
+                <tr>
+                    <td>{{ application.job.job_title }}</td>
+                    <td>{{ application.applicant.username }}</td>
+                    <td>{{ application.status }}</td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="3">No applications found.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

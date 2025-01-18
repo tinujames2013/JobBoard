@@ -1,0 +1,76 @@
+{% extends 'sitevisitor/site_base.html' %}
+
+{% block title %}
+Home - Site Visitor
+{% endblock %}
+
+{% load static %}
+
+{% block content %}
+<div class="container mt-5">
+    <h3 class="fw-bold" style="padding: 10px; border: 1px solid #ddd; border-radius: 5px; display: inline-block;">
+        Check Latest Jobs 
+    <h4 class="mb-4 text-center">Discover Your Dream Job</h4>
+    <p class="text-center text-muted">Browse through our latest job listings and Apply for the perfect opportunity.</p>
+
+    <div class="row">
+        {% for job in jobs %}
+            <div class="col-md-12 mb-4">
+                <div class="card shadow-sm border-0">
+                    <div class="row g-0">
+                        <!-- Job Image -->
+                        <div class="col-md-2 d-flex align-items-center justify-content-center bg-light">
+                            {% if job.featured_image %}
+                                <img src="{{ job.featured_image.url }}" 
+                                     class="img-fluid rounded-circle" 
+                                     alt="Job Image" 
+                                     style="width: 80px; height: 80px; object-fit: cover;">
+                            {% else %}
+                                <img src="https://via.placeholder.com/80" 
+                                     class="img-fluid rounded-circle" 
+                                     alt="Placeholder" 
+                                     style="width: 80px; height: 80px; object-fit: cover;">
+                            {% endif %}
+                        </div>
+
+                        <!-- Job Details -->
+                        <div class="col-md-10">
+                            <div class="card-body">
+                                <h5 class="card-title text-primary">{{ job.job_title }}</h5>
+                                <p class="card-text text-secondary small">{{ job.job_description|truncatewords:20 }}</p>
+                                <div class="d-flex flex-wrap justify-content-between">
+                                    <p class="card-text mb-1">
+                                        <i class="bi bi-geo-alt-fill text-success"></i> 
+                                        <strong>Location:</strong> {{ job.job_location }}
+                                    </p>
+                                    <p class="card-text mb-1">
+                                        <i class="bi bi-briefcase-fill text-info"></i> 
+                                        <strong>Type:</strong> {{ job.job_type }}
+                                    </p>
+                                    <p class="card-text mb-1">
+                                        <i class="bi bi-currency-dollar text-warning"></i> 
+                                        <strong>Salary:</strong> {{ job.salary|default:"Not Disclosed" }}
+                                    </p>
+                                </div>
+                                <div class="d-flex justify-content-end mt-3">
+                                    <!-- Browse Job and Apply Now -->
+                                    <a href="{% url 'jobs:job_view' job.id %}" class="btn btn-danger btn-sm me-2">Browse Job</a>
+                                    {% if user.is_authenticated %}
+                                        <a href="{% url 'users:apply_for_job' job.id %}" class="btn btn-danger btn-sm">Apply Now</a>
+                                    {% else %}
+                                        <a href="{% url 'sitevisitor:login' %}" class="btn btn-warning btn-sm">Login to Apply</a>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% empty %}
+            <div class="col-12">
+                <p class="text-center text-muted">No jobs available at the moment. Check back later!</p>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

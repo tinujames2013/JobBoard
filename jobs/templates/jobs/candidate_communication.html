@@ -1,0 +1,22 @@
+{% extends 'jobs/jobs_base.html' %}
+
+{% block title %}Candidate Communication{% endblock %}
+
+
+
+
+{% block content %}
+<h2>Send Message to Candidate</h2>
+
+<p>Application for: {{ application.job.job_title }}</p>
+<p>Applicant: {{ application.applicant.username }}</p>
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Send Message</button>
+</form>
+
+<a href="{% url 'jobs:applications_list' %}">Back to Applications</a>
+{% endblock %}
+

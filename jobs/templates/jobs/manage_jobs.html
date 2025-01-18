@@ -1,0 +1,29 @@
+{% extends 'jobs/jobs_base.html' %}
+
+
+{% block title %}Manage Jobs{% endblock %}
+
+{% block content %}
+<h2>Manage Your Jobs</h2>
+
+{% if jobs %}
+    <ul>
+        {% for job in jobs %}
+            <li>
+                <h5>{{ job.job_title }}</h5>
+                <p><strong>Description:</strong> {{ job.job_description }}</p>
+                <p><strong>Posted on:</strong> {{ job.posted_at|date:"F j, Y" }}</p>
+                <p><strong>Location:</strong> {{ job.job_location }}</p>
+                <p><strong>Salary:</strong> {{ job.salary }}</p>
+                <p><strong>Status:</strong> {{ job.get_status_display }}</p>
+
+                <a href="{% url 'jobs:edit_job' job.id %}">Edit</a> |
+                <a href="{% url 'jobs:delete_job' job.id %}">Delete</a> |
+                <a href="{% url 'jobs:change_job_status' job.id %}">Change Status</a>
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>You have not posted any jobs yet.</p>
+{% endif %}
+{% endblock %}

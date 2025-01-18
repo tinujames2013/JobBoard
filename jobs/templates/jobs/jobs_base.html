@@ -1,0 +1,114 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>{% block title %}Jobs Portal{% endblock %}</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!-- CSS Files -->
+        <link rel="stylesheet" href="{% static 'css/plugins.css' %}">
+        <link rel="stylesheet" href="{% static 'css/common.css' %}">
+        <link rel="stylesheet" href="{% static 'css/main.css' %}">
+        <style>
+            .navbar .dropdown-menu {
+                background: #f8f9fa;
+                border-radius: 0;
+            }
+            .inner-banner {
+                background-size: cover;
+                background-position: center;
+                min-height: 300px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: white;
+                text-align: center;
+            }
+            .navbar-nav li {
+                margin: 0 10px;
+            }
+            .navbar-nav .dropdown-menu {
+                min-width: 200px;
+            }
+            .navbar-nav .dropdown-item {
+                padding: 10px 20px;
+            }
+        </style>
+    </head>
+    <body>
+        <!-- Navigation Start -->
+        <nav class="navbar navbar-default navbar-sticky bootsnav">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-menu">
+                        <i class="fa fa-bars"></i>
+                    </button>
+                    <a class="navbar-brand" href="{% url 'jobs:jobs_home' %}">
+                        <img src="{% static 'img/logo.png' %}" class="logo" alt="Logo">
+                    </a>
+                </div>
+                <div class="collapse navbar-collapse" id="navbar-menu">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="{% url 'jobs:jobs_home' %}">Home</a></li>
+                        
+                        <!-- Recruiter Dashboard with dropdown -->
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dashboard <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                
+                                <li><a href="{% url 'jobs:applications_dashboard' %}">Applications</a></li>
+                                <li><a href="{% url 'jobs:manage_jobs' %}">Manage Jobs</a></li>
+                            </ul>
+                        </li>
+
+                        <!-- Job-related actions -->
+                         
+                        <li><a href="{% url 'jobs:post_job' %}">Post Job</a></li>
+                        <li><a href="{% url 'jobs:candidate_search' %}">Search Candidates</a></li>
+                        
+                        <!-- Recruiter Profile with dropdown -->
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Profile <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="{% url 'jobs:view_profile' %}">View Profile</a></li>
+                                <a href="{% url 'jobs:create_profile' %}" class="btn btn-primary">Create Profile</a>
+                             
+                            </ul>
+                        </li>
+
+                        
+
+                        <!-- Logout -->
+                        <li><a href="{% url 'jobs:logout' %}">Logout</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <!-- Navigation End -->
+
+        <section class="inner-banner" style="background-image: url('{% static "img/slider-02.jpg" %}');">
+            <div class="caption">
+                <h2>Welcome to the Jobs Portal</h2>
+                <p>Find the perfect candidate</p>
+            </div>
+        </section>
+
+        <!-- Main Content -->
+        <div class="container mt-5">
+            {% block content %}
+            {% endblock %}
+        </div>
+
+        <!-- Footer Start -->
+        <footer class="text-center mt-5">
+            <p>&copy; {{ now|date:"Y" }} Jobs Portal | Designed by <a href="https://themezhub.com/">ThemezHub</a></p>
+        </footer>
+
+        <!-- JavaScript Files -->
+        <script src="{% static 'js/jquery.min.js' %}"></script>
+        <script src="{% static 'js/bootstrap.min.js' %}"></script>
+        <script src="{% static 'js/bootsnav.js' %}"></script>
+    </body>
+</html>

@@ -1,0 +1,35 @@
+{% extends 'jobs/jobs_base.html' %}
+
+{% block title %}Applications Dashboard{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>Applications Dashboard</h1>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Job</th>
+                <th>Applicant</th>
+                <th>Status</th>
+                <th>Applied On</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for application in applications %}
+                <tr>
+                    <td>{{ application.job.job_title }}</td>
+                    <td>{{ application.applicant.username }}</td>
+                    <td>{{ application.status }}</td>
+                    <td>{{ application.applied_at|date:"F d, Y" }}</td>
+                    <td><a href="{% url 'jobs:application_details' application.id %}">View Details</a></td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="5">No applications found.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

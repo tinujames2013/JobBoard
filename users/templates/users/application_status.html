@@ -1,0 +1,44 @@
+{% extends "users/users_base.html" %}
+{% load static %}
+{% block content %}
+
+<div class="container py-5">
+    <h2 class="text-center">My Applications</h2>
+
+    <!-- Display a message if there are no applications -->
+    {% if not applications %}
+        <div class="alert alert-info text-center">
+            <p>You have not applied for any jobs yet.</p>
+        </div>
+    {% else %}
+        <!-- List of Applications -->
+        <ul class="list-group">
+            {% for application in applications %}
+                <li class="list-group-item">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h5>{{ application.job.job_title }}</h5>
+                            <p>
+                                <strong>Applied on:</strong> {{ application.applied_at|date:"M d, Y" }}<br>
+                                <strong>Status:</strong> 
+                                <span class="badge 
+                                    {% if application.status == 'Pending' %}badge-warning{% endif %}
+                                    {% if application.status == 'Reviewed' %}badge-info{% endif %}
+                                    {% if application.status == 'Accepted' %}badge-success{% endif %}
+                                    {% if application.status == 'Rejected' %}badge-danger{% endif %}
+                                ">
+                                    {{ application.status }}
+                                </span>
+                            </p>
+                        </div>
+                        <div>
+                            <a href="{% url 'users:withdraw_application' application.id %}" class="btn btn-outline-danger btn-sm">Withdraw</a>
+                        </div>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+</div>
+
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends 'users/users_base.html' %}
+{% load static %}
+
+{% block title %}Withdraw Application{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Withdraw Application</h2>
+    <p>Are you sure you want to withdraw your application for the job: <strong>{{ application.job.job_title }}</strong> at <strong>{{ application.job.company_name }}</strong>?</p>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Confirm Withdrawal</button>
+        <a href="{% url 'users:application_status' %}" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
+{% endblock %}

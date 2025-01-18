@@ -1,0 +1,39 @@
+{% extends 'users/users_base.html' %} 
+
+{% block title %}Notifications{% endblock %}
+
+{% block content %}
+<div class="container my-4">
+    <h1 class="display-4 text-center mb-4">My Notifications</h1>
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <ul class="list-group">
+                {% for notification in notifications %}
+                    <li class="list-group-item {% if not notification.is_read %}list-group-item-info{% endif %} border-left-0 border-right-0">
+                        <div class="d-flex justify-content-between">
+                            <h5 class="mb-1">{{ notification.message }}</h5>
+                            <small class="text-muted">{{ notification.created_at|date:"M d, Y H:i" }}</small>
+                        </div>
+
+                        {% if notification.job %}
+                        <div class="mt-2">
+                            <strong>Job Title:</strong> {{ notification.job.job_title }}
+                            <br>
+                            <strong>Company:</strong> {{ notification.job.company_name }}
+                        </div>
+                        {% endif %}
+                        
+                        {% if notification.application %}
+                        <div class="mt-2">
+                            <strong>Application Status:</strong> {{ notification.application.status }}
+                        </div>
+                        {% endif %}
+                    </li>
+                {% empty %}
+                    <li class="list-group-item text-center">No notifications yet.</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}

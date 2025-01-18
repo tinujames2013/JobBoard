@@ -1,0 +1,60 @@
+{% extends 'jobs/jobs_base.html' %}
+
+{% block title %}Application Details{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="mb-4">Application Details</h1>
+    <table class="table table-bordered">
+        <tbody>
+            <tr>
+                <th>Job Title</th>
+                <td>{{ application.job.job_title }}</td>
+            </tr>
+            <tr>
+                <th>Applicant</th>
+                <td>
+                    {{ application.applicant.username }}
+                    <a href="{% url 'users:view_profile_by_username' username=application.applicant.username %}" class="btn btn-link">
+                        View Profile
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <th>Status</th>
+                <td>
+                    <span class="badge 
+                        {% if application.status == 'Pending' %}bg-warning{% endif %}
+                        {% if application.status == 'Reviewed' %}bg-info{% endif %}
+                        {% if application.status == 'Accepted' %}bg-success{% endif %}
+                        {% if application.status == 'Rejected' %}bg-danger{% endif %}
+                    ">
+                        {{ application.status }}
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <th>Applied On</th>
+                <td>{{ application.applied_at|date:"F d, Y" }} at {{ application.applied_at|time:"H:i" }}</td>
+            </tr>
+            {% if application.resume %}
+            <tr>
+                <th>Resume</th>
+                <td><a href="{{ application.resume.url }}" target="_blank" class="btn btn-link">View Resume</a></td>
+            </tr>
+            {% endif %}
+            {% if application.cover_letter %}
+            <tr>
+                <th>Cover Letter</th>
+                <td><a href="{{ application.cover_letter.url }}" target="_blank" class="btn btn-link">View Cover Letter</a></td>
+            </tr>
+            {% endif %}
+        </tbody>
+    </table>
+
+    <div class="mt-4">
+        <a href="{% url 'jobs:applications_list' %}" class="btn btn-secondary">Back to Applications</a>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,56 @@
+{% extends 'users/users_base.html' %}
+{% load static %}
+{% block title %}Login{% endblock %}
+
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-6">
+            <!-- Candidate Login -->
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="card-title text-center">Login as Candidate</h3>
+                    <form method="POST" action="{% url 'users:login' %}">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="username_candidate">Username</label>
+                            <input type="text" id="username_candidate" name="username" class="form-control" placeholder="Enter your username" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="password_candidate">Password</label>
+                            <input type="password" id="password_candidate" name="password" class="form-control" placeholder="Enter your password" required>
+                        </div>
+                        <input type="hidden" name="user_type" value="candidate">
+                        <button type="submit" class="btn btn-primary btn-block">Login</button>
+                        <a href="sitevisitor:reset_password.html -class="d-block text-center mt-2">Forgot Password?</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <!-- Recruiter Login -->
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="card-title text-center">Login as Recruiter</h3>
+                    <form method="POST" action="{% url 'sitevisitor:login' %}">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="username_recruiter">Username</label>
+                            <input type="text" id="username_recruiter" name="username" class="form-control" placeholder="Enter your username" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="password_recruiter">Password</label>
+                            <input type="password" id="password_recruiter" name="password" class="form-control" placeholder="Enter your password" required>
+                        </div>
+                        <input type="hidden" name="user_type" value="recruiter">
+                        <button type="submit" class="btn btn-success btn-block">Login</button>
+                        <a href=reset_password.html - class="d-block text-center mt-2">Forgot Password?</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
