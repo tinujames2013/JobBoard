@@ -1,7 +1,4 @@
-usernsme: adminuser1
-email: tinujaimes2013@gmail.com
 
-tinujw22
 
 Overview
 The Job Board Application facilitates the hiring process with features for job postings, candidate applications, and profile management.
